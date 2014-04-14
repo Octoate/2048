@@ -5,16 +5,13 @@
 ;; by H. Hansen 2003
 ;; Original lines has been marked out!
 ;; Updated to SDCC v3.3.0 by Mochilote in 2013 (Fixed initialization of global variables)
+;; changed to fit the settings for this project in 2014 by Octoate (start address will be determined by --code-loc compiler option)
 
-  .module crt0
+	.module crt0
 	.globl	_main
 
-	.area _HEADER (ABS)
-;; Reset vector
-	.org 	0x4000 ;; Start from address &4000
 	jp	init
-	
-	.org	0x4010
+	.ascii "(c)2014 Octoate"
 
 init:
 
@@ -23,7 +20,7 @@ init:
 ;;	I will use the Basic stack, so the program can return to basic!
 
 ;; Initialise global variables
-  call    gsinit
+	call    gsinit
 	call	_main
 	jp	_exit
 
@@ -40,7 +37,7 @@ init:
 	.area   _BSS
 	.area   _HEAP
 
-  .area   _CODE
+	.area   _CODE
 __clock::
 	ret
 	
