@@ -15,28 +15,27 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
+#include <stdio.h>
 
+#include "cpc.h"
 #include "board.h"
 
-
-int main(int argc, char* argv[]) {
+main() {
 	struct board board;
-	char input[1024];
+	unsigned char input;
 	int status; // Game status.
 	int valid;
 
 	// Print legal shenanigains.
-	printf("\t2048 (implemented in C)  Copyright (C) 2014  Wade T. Cline\n"
-	       "\tThis program comes with ABSOLUTELY NO WARRANTY. This is\n"
-	       "\tfree software, and you are welcome to redistribute it\n"
-	       "\tunder certain conditions. See the file 'COPYING' in the\n"
-	       "\tsource code for details.\n\n");
+	printf("\t2048 (implemented in C)  Copyright (C) 2014  Wade T. Cline\r\n"
+	       "\tThis program comes with ABSOLUTELY NO WARRANTY. This is\r\n"
+	       "\tfree software, and you are welcome to redistribute it\r\n"
+	       "\tunder certain conditions. See the file 'COPYING' in the\r\n"
+	       "\tsource code for details.\r\n\r\n");
 
 	// Set up board.
 	board_init(&board);
+	
 	
 	// Play the game.
 	while (!(status = board_done(&board))) {
@@ -45,25 +44,26 @@ int main(int argc, char* argv[]) {
 
 		// Get the player's move.
 		valid = 0;
-		memset((void*)input, 0, sizeof(input));
-		write(STDOUT_FILENO, (void*)"> ", 3);
-		if (read(STDIN_FILENO, (void*)input, sizeof(input) - 1)
-		    == -1) {
-			perror("Error reading input");
-			break;
-		}
-		input[strlen(input) - 1] = 0;
-		if (!strcmp(input, "u") || !strcmp(input, "up")) {
-			valid = board_move_up(&board);
-		} else if (!strcmp(input, "d") || !strcmp(input, "down")) {
-			valid = board_move_down(&board);
-		} else if (!strcmp(input, "l") || !strcmp(input, "left")) {
-			valid = board_move_left(&board);
-		} else if (!strcmp(input, "r") || !strcmp(input, "right")) {
-			valid = board_move_right(&board);
-		} else {
-			printf("Don't understand input: %s.\n", input);
-			continue;
+		input = GetChar_CPC();
+		printf("%x \r\n", input);
+		
+		switch (input)
+		{
+			case 0xF0:	//Up
+				valid = board_move_up(&board);
+				break;
+			case 0xF1:	//Down
+				valid = board_move_down(&board);
+				break;
+			case 0xF2:	//Left
+				valid = board_move_left(&board);
+				break;
+			case 0xF3:	//Right
+				valid = board_move_right(&board);
+				break;
+			default:
+				printf("Don't understand input: 0x%x.\n", input);
+				continue;
 		}
 
 		// Prepare for user's next move.
@@ -75,9 +75,9 @@ int main(int argc, char* argv[]) {
 	}
 	
 	// Print the final board.
-	printf("Game over, you %s!", (status < 0) ? "LOSE" : "WIN");
+	printf("Game over, you %s!\r\n", (status < 0) ? "LOSE" : "WIN");
 	board_print(&board);
 
 	// Return success.
-	return EXIT_SUCCESS;
+	return 0;
 }
