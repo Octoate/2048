@@ -12,3 +12,4 @@ del *.noi
 del *.bin
 del board.asm
 del main.asm
+del cpc.asm

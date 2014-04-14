@@ -1,22 +1,30 @@
+@echo.
 @echo ==================== compile crt0 ====================
 sdasz80 -go crt0_cpc.s
 
+@echo.
 @echo ==================== compile assembly files ====================
 sdasz80 -o putchar_cpc.s
-sdasz80 -o random_cpc.s
 
+@echo.
 @echo ==================== compile C files ====================
-rem sdcc -mz80 -c board.c
-sdcc --no-std-crt0 -mz80 --code-loc 0x4100 --data-loc 0 -mz80 -c main.c
+sdcc -mz80 -c cpc.c
+sdcc -mz80 -c board.c
+sdcc -mz80 -mz80 -c main.c
 
+@echo.
 @echo ==================== link object files ====================
-sdcc --no-std-crt0 -mz80 --code-loc 0x4100 --data-loc 0 -mz80 -o 2048.ihx crt0_cpc.rel putchar_cpc.rel random_cpc.rel main.rel
+sdcc --code-loc 0x4000 -mz80 --no-std-crt0 -mz80 -o 2048.ihx crt0_cpc.rel putchar_cpc.rel cpc.rel board.rel main.rel
 
+@echo.
 @echo ==================== convert intel hex to binary ====================
 .\tools\hex2bin\hex2bin 2048.ihx
 
+@echo.
 @echo ==================== create DSK image ====================
-xcopy /Y .\tools\empty_data_disc.dsk 2048.dsk
+del 2048.dsk
+xcopy .\tools\empty_data_disc.dsk
+ren empty_data_disc.dsk 2048.dsk
 .\tools\CPCDiskXP\CPCDiskXP -File 2048.bin -AddAmsdosHeader 4000 -AddToExistingDsk 2048.dsk
 .\tools\CPCDiskXP\CPCDiskXP -File .\tools\loader.bas -AddToExistingDsk 2048.dsk
 
