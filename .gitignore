@@ -1,3 +1,8 @@
 .*.swp
 *.o
 2048
+*.rel
+*.lst
+*.map
+*.noi
+*.sym
