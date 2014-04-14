@@ -18,7 +18,7 @@ unsigned char GetChar_CPC()
   __asm
     LD HL, #_nGetChar
     LD (HL), #0
-    CALL #0xBB09 ;KM READ CHAR
+    CALL #0xBB06 ;KM WAIT CHAR
     JP NC, _end_getchar
     LD (HL), A
     _end_getchar:
