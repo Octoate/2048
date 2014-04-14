@@ -38,7 +38,6 @@ struct board {
 	unsigned tiles[BOARD_ROWS][BOARD_COLUMNS];
 };
 
-
 /**
  * Returns 0 if the game is not over; >0 if the game is over and the user
  * has won, or <0 if the user has lost.

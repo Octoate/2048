@@ -16,7 +16,7 @@
  */
 
 #include "board.h"
-
+#include "cpc.h"
 
 int board_done(struct board* board) {
 	int i;
@@ -277,15 +277,15 @@ void board_plop(struct board* board) {
 	// Count number of empty tiles.
 	tiles_empty = board_get_tiles_empty(board);
 
-	// Choose a random tile to palce the value into.
-	target = random() % tiles_empty;
+	// Choose a random tile to place the value into.
+	target = GetRandom_CPC() % tiles_empty;
 
 	// Place the value into the tile. Implemented poorly.
 	tiles_empty = 0;
 	for (i = 0; i < BOARD_ROWS; i++) {
 		for (j = 0; j < BOARD_COLUMNS; j++) {
 			if (target == tiles_empty && board->tiles[i][j] == 0) {
-				board->tiles[i][j] = (random() % 100 <=
+				board->tiles[i][j] = (GetRandom_CPC() % 100 <=
 						BOARD_4SPAWN_CHANCE) ? 4 : 2;
 				tiles_empty++;
 			} else if (board->tiles[i][j] == 0) {
@@ -309,8 +309,9 @@ void board_print(struct board* board) {
 				printf("   . ");
 			}
 		}
-		printf("\n");
+		printf("\r\n");
 	}
+	printf("\r\n");
 }
 
 int board_shift_up(struct board* board) {
