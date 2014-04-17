@@ -49,15 +49,30 @@ main() {
 		
 		switch (input)
 		{
+			case 0x0B:	//Joystick up
+			case 0x51:	//Q
+			case 0x71:	//q
 			case 0xF0:	//Up
 				valid = board_move_up(&board);
 				break;
+			
+			case 0x0A:	//Joystick down
+			case 0x41:	//A
+			case 0x61:	//a
 			case 0xF1:	//Down
 				valid = board_move_down(&board);
 				break;
+				
+			case 0x08:	//Joystick left
+			case 0x4F:	//O
+			case 0x6F:	//o
 			case 0xF2:	//Left
 				valid = board_move_left(&board);
 				break;
+				
+			case 0xFD:	//Joystick right
+			case 0x50:	//P
+			case 0x70:	//p
 			case 0xF3:	//Right
 				valid = board_move_right(&board);
 				break;
