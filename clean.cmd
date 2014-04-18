@@ -10,6 +10,7 @@ del *.lk
 del *.lst
 del *.noi
 del *.bin
+del *.hfe
 del board.asm
 del main.asm
 del cpc.asm
