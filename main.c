@@ -77,7 +77,7 @@ main() {
 				valid = board_move_right(&board);
 				break;
 			default:
-				printf("Don't understand input: 0x%x.\n", input);
+				printf("Don't understand input: 0x%x.\r\n", input);
 				continue;
 		}
 
@@ -85,7 +85,7 @@ main() {
 		if (valid) {
 			board_plop(&board);
 		} else {
-			printf("Invalid move.\n");
+			printf("Invalid move.\r\n");
 		}
 	}
 	
