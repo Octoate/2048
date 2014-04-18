@@ -28,4 +28,8 @@ ren empty_data_disc.dsk 2048.dsk
 .\tools\CPCDiskXP\CPCDiskXP -File 2048.bin -AddAmsdosHeader 4000 -AddToExistingDsk 2048.dsk
 .\tools\CPCDiskXP\CPCDiskXP -File .\tools\loader.bas -AddToExistingDsk 2048.dsk
 
+@echo.
+@echo ==================== convert to HFE disc image ====================
+.\tools\HxCFloppyEmulator\hxcfe.exe -conv:HXC_HFE -finput:2048.dsk
+
 rem pause
