@@ -20,12 +20,22 @@
 #include "cpc.h"
 #include "board.h"
 
+void initGraphics()
+{
+	SetMode_CPC(0);
+	SetColour_CPC(0, 26);	// background -> white
+	SetColour_CPC(1, 0);	// character colour -> black
+	SetBorder_CPC(26);		// border colour -> white
+}
+
 main() {
 	struct board board;
 	unsigned char input;
 	int status; // Game status.
 	int valid;
 
+	initGraphics();
+	
 	// Print legal shenanigains.
 	printf("\t2048 (implemented in C)  Copyright (C) 2014  Wade T. Cline\r\n"
 	       "\tThis program comes with ABSOLUTELY NO WARRANTY. This is\r\n"
@@ -40,12 +50,12 @@ main() {
 	// Play the game.
 	while (!(status = board_done(&board))) {
 		// Print the board.
+		printf("Score: %u \r\n", score);
 		board_print(&board);
 
 		// Get the player's move.
 		valid = 0;
 		input = GetChar_CPC();
-		printf("%x \r\n", input);
 		
 		switch (input)
 		{
@@ -96,3 +106,4 @@ main() {
 	// Return success.
 	return 0;
 }
+

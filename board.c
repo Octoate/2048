@@ -18,6 +18,8 @@
 #include "board.h"
 #include "cpc.h"
 
+unsigned long score = 0;
+
 int board_done(struct board* board) {
 	int i;
 	int j;
@@ -44,7 +46,7 @@ int board_done(struct board* board) {
 		}
 	}
 
-	// Check for possible verical merge.
+	// Check for possible vertical merge.
 	for (i = 0; i < BOARD_COLUMNS; i++) {
 		j = -1;
 		while ((k = ++j + 1) < BOARD_ROWS) {
@@ -79,6 +81,8 @@ void board_init(struct board* board) {
 	int i;
 	int j;
 
+	score = 0;
+	
 	// Initialize each tile.
 	for (i = 0; i < BOARD_ROWS; i++) {
 		for (j = 0; j < BOARD_COLUMNS; j++) {
@@ -117,6 +121,7 @@ int board_merge_down(struct board* board) {
 			// Try to merge the tiles.
 			if (board->tiles[j][i] == board->tiles[k][i]) {
 				board->tiles[k][i] += board->tiles[k][i];
+				score += board->tiles[k][i]; // update score
 				board->tiles[j][i] = 0;
 				j = k - 1;
 				merge = 1;
@@ -157,6 +162,7 @@ int board_merge_left(struct board* board) {
 			// Try to merge the tiles.
 			if (board->tiles[i][j] == board->tiles[i][k]) {
 				board->tiles[i][j] += board->tiles[i][j];
+				score += board->tiles[i][j]; // update score
 				board->tiles[i][k] = 0;
 				j = k + 1;
 				merge = 1;
@@ -196,6 +202,7 @@ int board_merge_right(struct board* board) {
 			// Try to merge the tiles.
 			if (board->tiles[i][j] == board->tiles[i][k]) {
 				board->tiles[i][k] += board->tiles[i][k];
+				score += board->tiles[i][k]; // update score
 				board->tiles[i][j] = 0;
 				j = k - 1;
 				merge = 1;
@@ -235,6 +242,7 @@ int board_merge_up(struct board* board) {
 			// Try to merge the tiles.
 			if (board->tiles[j][i] == board->tiles[k][i]) {
 				board->tiles[j][i] += board->tiles[j][i];
+				score += board->tiles[j][i]; // update score
 				board->tiles[k][i] = 0;
 				j = k + 1;
 				merge = 1;
@@ -346,7 +354,7 @@ int board_shift_up(struct board* board) {
 int board_shift_down(struct board* board) {
 	int i;
 	int j;
-	unsigned k;
+	int k;
 	int valid;
 
 	// Shift tiles down the columns.
@@ -375,7 +383,7 @@ int board_shift_down(struct board* board) {
 int board_shift_left(struct board* board) {
 	int i;
 	int j;
-	unsigned k;
+	int k;
 	int valid;
 
 	// Shift tiles left across the rows.
@@ -404,7 +412,7 @@ int board_shift_left(struct board* board) {
 int board_shift_right(struct board* board) {
 	int i;
 	int j;
-	unsigned k;
+	int k;
 	int valid;
 
 	// Shift tiles right across the rows.

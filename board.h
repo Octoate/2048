@@ -39,6 +39,11 @@ struct board {
 };
 
 /**
+ * Represents the current game score
+ */
+extern unsigned long score;
+
+/**
  * Returns 0 if the game is not over; >0 if the game is over and the user
  * has won, or <0 if the user has lost.
  */
