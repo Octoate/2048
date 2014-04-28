@@ -10,7 +10,7 @@ sdasz80 -o putchar_cpc.s
 @echo ==================== compile C files ====================
 sdcc -mz80 -c cpc.c
 sdcc -mz80 -c board.c
-sdcc -mz80 -mz80 -c main.c
+sdcc -mz80 -c main.c
 
 @echo.
 @echo ==================== link object files ====================
