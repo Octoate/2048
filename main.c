@@ -19,6 +19,7 @@
 
 #include "cpc.h"
 #include "board.h"
+#include "graphics\sprites.c"
 
 void initGraphics()
 {

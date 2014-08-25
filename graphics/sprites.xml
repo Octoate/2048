@@ -1,0 +1,31 @@
+<sprites>
+	<!-- sprites for the board elements -->
+	<spritegroup name="boardnumber" xOffset="0" yOffset="0" width="16" height="32" createIndexArray="true">
+		<sprite name="0"/>
+		<sprite name="2"/>
+		<sprite name="4"/>
+		<sprite name="8"/>
+		<sprite name="16"/>
+		<sprite name="32"/>
+		<sprite name="64"/>
+		<sprite name="128"/>
+		<sprite name="256"/>
+		<sprite name="512"/>
+		<sprite name="1024"/>
+		<sprite name="2048"/>
+	</spritegroup>
+
+	<!-- sprites for the font numbers -->
+	<spritegroup name="number" xOffset="0" yOffset="64" width="6" height="14" createIndexArray="true">
+		<sprite name="0"/>
+		<sprite name="1"/>
+		<sprite name="2"/>
+		<sprite name="3"/>
+		<sprite name="4"/>
+		<sprite name="5"/>
+		<sprite name="6"/>
+		<sprite name="7"/>
+		<sprite name="8"/>
+		<sprite name="9"/>
+	</spritegroup>
+</sprites>

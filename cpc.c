@@ -1,3 +1,5 @@
+#include <string.h>
+
 unsigned char nPreviousValue = 0xFF;
 unsigned char GetRandom_CPC(void)
 {
@@ -27,6 +29,22 @@ unsigned char GetChar_CPC(void)
   return nGetChar;
 }
 
+// graphics functions
+void PutSpriteMode0(unsigned char *pSprite, unsigned char nX, unsigned char nY, unsigned char nWidth, unsigned char nHeight)
+{
+    unsigned char nYPos = 0;
+    unsigned char *pAddress = 0;
+    
+    for(nYPos = 0; nYPos < nHeight; nYPos++)
+    {
+        pAddress = (unsigned char *)(0xC000 + ((nY / 8u) * 80u) + ((nY % 8u) * 2048u) + nX);
+
+        memcpy(pAddress, pSprite, nWidth);
+        pSprite += nWidth;
+        nY++;
+    }
+}
+
 void SetBorder_CPC(unsigned char colourIndex)
 {
 	colourIndex;
@@ -44,13 +62,10 @@ void SetColour_CPC(unsigned char colourIndex, unsigned char paletteIndex)
 	colourIndex;
 	paletteIndex;
 	__asm
-		LD HL,#2
-		ADD HL,SP
-		LD A,(HL)
-		INC HL
-		LD B,(HL)
-		LD C,B
-		CALL 0xBC32	;SCR SET INK
+		ld a, 4 (ix)
+		ld b, 5 (ix)
+		ld c, b
+		call #0xBC32 ;SCR SET INK
 	__endasm;
 }
 
