@@ -17,6 +17,7 @@
 
 #include "board.h"
 #include "cpc.h"
+#include "sprites.h"
 
 unsigned long score = 0;
 
@@ -309,17 +310,40 @@ void board_print(struct board* board) {
 
 	// Print the board to 'stdout'.
 	for (i = 0; i < BOARD_ROWS; i++) {
-		printf(" ");
+		//printf(" ");
 		for (j = 0; j < BOARD_COLUMNS; j++) {
 			if (board->tiles[i][j]) {
-				printf("%4u ", board->tiles[i][j]);
+				PutSpriteMode0((void*)boardnumber[GetSpriteNumber(board->tiles[i][j])], j * BOARDNUMBER_WIDTH, i * BOARDNUMBER_HEIGHT, BOARDNUMBER_WIDTH, BOARDNUMBER_HEIGHT);
+				//printf("%4u ", board->tiles[i][j]);
 			} else {
-				printf("   . ");
+				//printf("   . ");
+				PutSpriteMode0((void*)boardnumber[0], j * BOARDNUMBER_WIDTH, i * BOARDNUMBER_HEIGHT, BOARDNUMBER_WIDTH, BOARDNUMBER_HEIGHT);
 			}
 		}
-		printf("\r\n");
+		//printf("\r\n");
 	}
-	printf("\r\n");
+	//printf("\r\n");
+}
+
+unsigned char GetSpriteNumber(unsigned value)
+{
+	switch (value)
+	{
+		case 0: return 0;
+		case 2: return 1;
+		case 4: return 2;
+		case 8: return 3;
+		case 16: return 4;
+		case 32: return 5;
+		case 64: return 6;
+		case 128: return 7;
+		case 256: return 8;
+		case 512: return 9;
+		case 1024: return 10;
+		case 2048: return 11;
+	}
+	
+	return 0;
 }
 
 int board_shift_up(struct board* board) {

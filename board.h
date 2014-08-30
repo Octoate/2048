@@ -19,7 +19,7 @@
 #define board_H
 
 
-#include <stdio.h>
+//#include <stdio.h>
 
 
 #define BOARD_COLUMNS 4
@@ -42,6 +42,12 @@ struct board {
  * Represents the current game score
  */
 extern unsigned long score;
+
+/**
+ * Graphics for the board numbers (used to print the board)
+ * included from sprites.c
+ */
+extern const unsigned char boardnumber[12][256];
 
 /**
  * Returns 0 if the game is not over; >0 if the game is over and the user
@@ -111,6 +117,7 @@ void board_plop(struct board* board);
  * Print the board to 'stdout'.
  */
 void board_print(struct board* board);
+unsigned char GetSpriteNumber(unsigned value);
 
 /**
  * Shift all the elements in the board down.

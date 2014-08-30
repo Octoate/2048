@@ -62,11 +62,25 @@ void SetColour_CPC(unsigned char colourIndex, unsigned char paletteIndex)
 	colourIndex;
 	paletteIndex;
 	__asm
-		ld a, 4 (ix)
-		ld b, 5 (ix)
-		ld c, b
-		call #0xBC32 ;SCR SET INK
+		LD HL,#2
+		ADD HL,SP
+		LD A,(HL)
+		INC HL
+
+		LD B,(HL)
+		LD C,B
+		CALL 0xBC32
 	__endasm;
+}
+
+void SetPaletteMode0_CPC(const unsigned char *pPalette)
+{
+	unsigned char nColour = 0;
+
+	for(nColour = 0; nColour < 16; nColour++)
+	{
+		SetColour_CPC(nColour, pPalette[nColour]);
+	}
 }
 
 void SetMode_CPC(unsigned char graphicsMode)

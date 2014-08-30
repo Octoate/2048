@@ -62,7 +62,7 @@ resources: loader.bas
 # defines the start address of the file and the depending files
 #
 2048.bin: START=0x4000
-2048.bin: crt0_cpc.rel putchar_cpc.rel cpc.rel board.rel main.rel
+2048.bin: crt0_cpc.rel putchar_cpc.rel sprites.rel cpc.rel board.rel main.rel
 
 #
 # define the target for the different assembly files, otherwise the

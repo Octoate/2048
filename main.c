@@ -15,18 +15,18 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <stdio.h>
+//#include <stdio.h>
 
 #include "cpc.h"
 #include "board.h"
-#include "graphics\sprites.c"
+#include "palette.c"
+#include "sprites.h"
 
 void initGraphics()
 {
+	SetBorder_CPC(ColourPalette[0]);
+	SetPaletteMode0_CPC(ColourPalette);
 	SetMode_CPC(0);
-	SetColour_CPC(0, 26);	// background -> white
-	SetColour_CPC(1, 0);	// character colour -> black
-	SetBorder_CPC(26);		// border colour -> white
 }
 
 main() {
@@ -34,15 +34,24 @@ main() {
 	unsigned char input;
 	int status; // Game status.
 	int valid;
-
+	unsigned char idx;
+	
 	initGraphics();
 	
+	//PutSpriteMode0((void*)boardnumber[2], 0, 0, BOARDNUMBER_WIDTH, BOARDNUMBER_HEIGHT);
+	
+	//for (idx = 0; idx < 10; idx++)
+	//{
+		//PutSpriteMode0((void*)number[idx], idx * NUMBER_WIDTH, BOARDNUMBER_HEIGHT + 1, NUMBER_WIDTH, NUMBER_HEIGHT);
+	//}
+	//GetChar_CPC();
+	
 	// Print legal shenanigains.
-	printf("\t2048 (implemented in C)  Copyright (C) 2014  Wade T. Cline\r\n"
-	       "\tThis program comes with ABSOLUTELY NO WARRANTY. This is\r\n"
-	       "\tfree software, and you are welcome to redistribute it\r\n"
-	       "\tunder certain conditions. See the file 'COPYING' in the\r\n"
-	       "\tsource code for details.\r\n\r\n");
+	//printf("\t2048 (implemented in C)  Copyright (C) 2014  Wade T. Cline\r\n"
+	//       "\tThis program comes with ABSOLUTELY NO WARRANTY. This is\r\n"
+	//       "\tfree software, and you are welcome to redistribute it\r\n"
+	//       "\tunder certain conditions. See the file 'COPYING' in the\r\n"
+	//       "\tsource code for details.\r\n\r\n");
 
 	// Set up board.
 	board_init(&board);
@@ -51,7 +60,7 @@ main() {
 	// Play the game.
 	while (!(status = board_done(&board))) {
 		// Print the board.
-		printf("Score: %u \r\n", score);
+		//printf("Score: %u \r\n", score);
 		board_print(&board);
 
 		// Get the player's move.
@@ -88,7 +97,7 @@ main() {
 				valid = board_move_right(&board);
 				break;
 			default:
-				printf("Don't understand input: 0x%x.\r\n", input);
+				//printf("Don't understand input: 0x%x.\r\n", input);
 				continue;
 		}
 
@@ -96,12 +105,12 @@ main() {
 		if (valid) {
 			board_plop(&board);
 		} else {
-			printf("Invalid move.\r\n");
+			//printf("Invalid move.\r\n");
 		}
 	}
 	
 	// Print the final board.
-	printf("Game over, you %s!\r\n", (status < 0) ? "LOSE" : "WIN");
+	//printf("Game over, you %s!\r\n", (status < 0) ? "LOSE" : "WIN");
 	board_print(&board);
 
 	// Return success.
